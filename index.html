@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clínica Dental J — Providencia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a1628;
+      --blue: #1a3a6b;
+      --accent: #2d7dd2;
+      --light: #e8f1fb;
+      --gold: #c9a84c;
+      --white: #ffffff;
+      --gray: #6b7280;
+      --soft: #f7f9fc;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 20px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(10,22,40,0.95);
+      backdrop-filter: blur(10px);
+      padding: 14px 5%;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.3);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--white); letter-spacing: 1px;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.5px;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy);
+      border: none; padding: 10px 22px; border-radius: 50px;
+      font-weight: 700; font-size: 0.85rem; cursor: pointer;
+      transition: all 0.3s; letter-spacing: 0.5px;
+    }
+    .nav-cta:hover { background: #e0bb6a; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh; min-height: 700px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 60%, #1e4d8c 100%);
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-circles {
+      position: absolute; inset: 0; pointer-events: none;
+    }
+    .hero-bg-circles span {
+      position: absolute; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .hero-bg-circles span:nth-child(1) { width: 600px; height: 600px; top: -200px; right: -150px; }
+    .hero-bg-circles span:nth-child(2) { width: 400px; height: 400px; bottom: -100px; left: -100px; }
+    .hero-bg-circles span:nth-child(3) { width: 250px; height: 250px; top: 40%; right: 20%; }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 5%; max-width: 700px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold); font-size: 0.8rem; font-weight: 600;
+      padding: 6px 16px; border-radius: 50px; margin-bottom: 2rem;
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--white); margin-bottom: 1.5rem;
+    }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-subtitle {
+      font-size: 1.1rem; color: rgba(255,255,255,0.7);
+      line-height: 1.7; margin-bottom: 2.5rem; max-width: 500px;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 14px 32px; border-radius: 50px;
+      font-weight: 700; font-size: 0.95rem; cursor: pointer;
+      border: none; transition: all 0.3s; letter-spacing: 0.3px;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { background: #e0bb6a; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,168,76,0.4); }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      padding: 14px 32px; border-radius: 50px;
+      font-weight: 600; font-size: 0.95rem; cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.3); transition: all 0.3s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+
+    .hero-stats {
+      position: absolute; bottom: 60px; right: 5%;
+      display: flex; gap: 3rem; z-index: 2;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-num {
+      font-size: 2.2rem; font-weight: 800; color: var(--white);
+      line-height: 1;
+    }
+    .hero-stat-num span { color: var(--gold); }
+    .hero-stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 5%; }
+    .section-tag {
+      display: inline-block; color: var(--accent);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.2; margin-bottom: 1.5rem;
+    }
+    .section-title em { color: var(--accent); font-style: italic; }
+    .section-subtitle {
+      font-size: 1.05rem; color: var(--gray);
+      max-width: 580px; line-height: 1.7;
+    }
+
+    /* ── SERVICES ── */
+    #servicios { background: var(--soft); }
+    .services-header { text-align: center; margin-bottom: 4rem; }
+    .services-header .section-subtitle { margin: 0 auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem; max-width: 1200px; margin: 0 auto;
+    }
+    .service-card {
+      background: var(--white); border-radius: 20px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: all 0.4s ease; cursor: default;
+      border: 1px solid rgba(0,0,0,0.04);
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 60px; height: 60px; border-radius: 16px;
+      background: var(--light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 1.5rem;
+      transition: all 0.3s;
+    }
+    .service-card:hover .service-icon { background: var(--accent); }
+    .service-name {
+      font-size: 1.2rem; font-weight: 700; margin-bottom: 0.7rem;
+    }
+    .service-desc {
+      font-size: 0.9rem; color: var(--gray); line-height: 1.6; margin-bottom: 1.5rem;
+    }
+    .service-price {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .price-label { font-size: 0.8rem; color: var(--gray); font-weight: 500; }
+    .price-value {
+      font-size: 1.1rem; font-weight: 800; color: var(--accent);
+    }
+
+    /* ── ABOUT ── */
+    #nosotros {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+      max-width: 1200px; margin: 0 auto; padding: 100px 5%;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-img-main {
+      width: 100%; aspect-ratio: 4/5; object-fit: cover;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--light) 0%, #d0e4f7 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem; color: rgba(45,125,210,0.2);
+    }
+    .about-img-placeholder {
+      width: 100%; aspect-ratio: 4/5; border-radius: 24px;
+      background: linear-gradient(135deg, var(--light) 0%, #c5d9f0 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1rem; color: var(--accent);
+    }
+    .about-img-placeholder svg { width: 80px; opacity: 0.3; }
+    .about-img-placeholder p { font-size: 0.85rem; color: var(--gray); opacity: 0.7; }
+    .about-badge-float {
+      position: absolute; bottom: 30px; right: -20px;
+      background: var(--white); border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .about-badge-icon { font-size: 2rem; }
+    .about-badge-text strong { font-size: 1.3rem; font-weight: 800; color: var(--navy); display: block; }
+    .about-badge-text span { font-size: 0.78rem; color: var(--gray); }
+
+    .about-features { list-style: none; margin: 2rem 0; }
+    .about-features li {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .about-features li:last-child { border-bottom: none; }
+    .feature-check {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--light); color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; flex-shrink: 0; margin-top: 1px;
+      font-weight: 700;
+    }
+    .feature-text strong { display: block; font-size: 0.95rem; margin-bottom: 2px; }
+    .feature-text span { font-size: 0.85rem; color: var(--gray); }
+
+    /* ── TEAM ── */
+    #equipo { background: var(--soft); }
+    .team-header { text-align: center; margin-bottom: 4rem; }
+    .team-header .section-subtitle { margin: 0 auto; }
+    .team-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem; max-width: 1000px; margin: 0 auto;
+    }
+    .team-card {
+      background: var(--white); border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: all 0.4s ease;
+    }
+    .team-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+    .team-photo {
+      width: 100%; aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--light), #c5d9f0);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; color: rgba(45,125,210,0.2);
+    }
+    .team-info { padding: 1.5rem; }
+    .team-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .team-role { font-size: 0.83rem; color: var(--accent); font-weight: 600; margin-bottom: 0.8rem; }
+    .team-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+    /* ── BOOKING ── */
+    #reservas {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      padding: 100px 5%;
+    }
+    .booking-header { text-align: center; margin-bottom: 4rem; }
+    .booking-header .section-tag { color: var(--gold); }
+    .booking-header .section-title { color: var(--white); }
+    .booking-header .section-subtitle { color: rgba(255,255,255,0.6); margin: 0 auto; }
+
+    .booking-container {
+      max-width: 900px; margin: 0 auto;
+      background: var(--white); border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+    }
+    .booking-tabs {
+      display: flex; background: var(--soft);
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .booking-tab {
+      flex: 1; padding: 1.2rem;
+      text-align: center; font-size: 0.85rem; font-weight: 600;
+      color: var(--gray); cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+    .booking-tab.active {
+      color: var(--accent); border-bottom-color: var(--accent);
+      background: var(--white);
+    }
+    .booking-tab .step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--light); color: var(--accent);
+      font-size: 0.75rem; font-weight: 700;
+      margin-right: 8px;
+    }
+    .booking-tab.active .step-num { background: var(--accent); color: var(--white); }
+
+    .booking-body { padding: 2.5rem; }
+    .booking-step { display: none; }
+    .booking-step.active { display: block; }
+
+    /* Calendar */
+    .cal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .cal-month {
+      font-size: 1.2rem; font-weight: 700;
+    }
+    .cal-nav {
+      background: var(--light); border: none;
+      width: 36px; height: 36px; border-radius: 50%;
+      cursor: pointer; font-size: 1rem; color: var(--accent);
+      transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .cal-nav:hover { background: var(--accent); color: var(--white); }
+    .cal-days-header {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 4px; margin-bottom: 8px;
+    }
+    .cal-day-name {
+      text-align: center; font-size: 0.75rem; font-weight: 600;
+      color: var(--gray); padding: 8px 0; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+    .cal-cell {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; border-radius: 10px; cursor: pointer;
+      transition: all 0.2s; font-weight: 500;
+      border: 2px solid transparent;
+    }
+    .cal-cell.empty { cursor: default; }
+    .cal-cell.past { color: #ccc; cursor: not-allowed; }
+    .cal-cell.available:hover { background: var(--light); border-color: var(--accent); }
+    .cal-cell.selected { background: var(--accent); color: var(--white); border-color: var(--accent); }
+    .cal-cell.today { border-color: var(--gold); font-weight: 800; }
+
+    /* Time slots */
+    .time-heading { font-size: 1rem; font-weight: 700; margin-bottom: 1.2rem; }
+    .time-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+    }
+    .time-slot {
+      padding: 0.6rem; text-align: center;
+      border: 2px solid var(--light); border-radius: 10px;
+      font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      transition: all 0.2s; color: var(--navy);
+    }
+    .time-slot:hover { border-color: var(--accent); color: var(--accent); }
+    .time-slot.selected { background: var(--accent); color: var(--white); border-color: var(--accent); }
+    .time-slot.unavailable { color: #ccc; cursor: not-allowed; border-color: #f0f0f0; }
+
+    /* Form */
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.2rem; margin-bottom: 1.2rem;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+    .form-group input, .form-group select {
+      padding: 12px 14px; border: 2px solid #e8edf2; border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      transition: border-color 0.2s; outline: none; color: var(--navy);
+    }
+    .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
+
+    .booking-summary {
+      background: var(--soft); border-radius: 14px;
+      padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+    }
+    .booking-summary-title { font-weight: 700; margin-bottom: 0.7rem; }
+    .booking-summary-row { display: flex; justify-content: space-between; padding: 4px 0; color: var(--gray); }
+    .booking-summary-row strong { color: var(--navy); }
+
+    .booking-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; }
+    .btn-book-next {
+      background: var(--accent); color: var(--white);
+      border: none; padding: 12px 28px; border-radius: 50px;
+      font-weight: 700; font-size: 0.9rem; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-book-next:hover { background: #1a6bbf; transform: translateY(-1px); }
+    .btn-book-back {
+      background: var(--soft); color: var(--gray);
+      border: none; padding: 12px 28px; border-radius: 50px;
+      font-weight: 600; font-size: 0.9rem; cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-book-back:hover { background: #e2e8f0; }
+
+    .booking-success {
+      text-align: center; padding: 2rem 0;
+    }
+    .booking-success .check-icon {
+      width: 70px; height: 70px; border-radius: 50%;
+      background: #dcfce7; margin: 0 auto 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+    .booking-success h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .booking-success p { color: var(--gray); font-size: 0.95rem; }
+
+    /* ── TESTIMONIOS ── */
+    #testimonios { background: var(--soft); }
+    .testimonios-header { text-align: center; margin-bottom: 4rem; }
+    .testimonios-header .section-subtitle { margin: 0 auto; }
+    .testimonios-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 2rem; max-width: 1100px; margin: 0 auto;
+    }
+    .testimonial-card {
+      background: var(--white); border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      transition: all 0.4s ease;
+    }
+    .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+    .testimonial-stars {
+      color: var(--gold); font-size: 1rem; margin-bottom: 1rem; letter-spacing: 2px;
+    }
+    .testimonial-text {
+      font-size: 0.95rem; line-height: 1.7; color: #4a5568;
+      margin-bottom: 1.5rem; font-style: italic;
+    }
+    .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+    .author-avatar {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--light); display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; color: var(--accent);
+    }
+    .author-name { font-weight: 700; font-size: 0.9rem; }
+    .author-meta { font-size: 0.8rem; color: var(--gray); }
+
+    /* ── CONTACT ── */
+    #contacto {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 5rem; align-items: start;
+      max-width: 1200px; margin: 0 auto; padding: 100px 5%;
+    }
+    .contact-info .section-subtitle { margin-bottom: 3rem; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      padding: 1.2rem 0; border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: var(--light); display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .contact-item strong { display: block; font-size: 0.88rem; color: var(--gray); margin-bottom: 3px; }
+    .contact-item span { font-size: 0.95rem; font-weight: 600; color: var(--navy); }
+
+    .contact-form {
+      background: var(--soft); border-radius: 24px; padding: 2.5rem;
+    }
+    .contact-form h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 2rem; }
+    .contact-form .form-grid { margin-bottom: 0; }
+    .form-group textarea {
+      padding: 12px 14px; border: 2px solid #e8edf2; border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      transition: border-color 0.2s; outline: none; resize: vertical;
+      min-height: 120px; color: var(--navy);
+    }
+    .form-group textarea:focus { border-color: var(--accent); }
+    .btn-submit {
+      width: 100%; background: var(--accent); color: var(--white);
+      border: none; padding: 14px; border-radius: 12px;
+      font-weight: 700; font-size: 1rem; cursor: pointer;
+      transition: all 0.3s; margin-top: 1.2rem;
+    }
+    .btn-submit:hover { background: #1a6bbf; transform: translateY(-1px); }
+
+    /* ── FIELD VALIDATION ── */
+    .form-group input.error,
+    .form-group select.error { border-color: #ef4444; }
+    .form-group input.ok,
+    .form-group select.ok { border-color: #22c55e; }
+    .field-error {
+      font-size: 0.76rem; color: #ef4444; font-weight: 500;
+      min-height: 16px; display: block; margin-top: 3px;
+    }
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25d366; color: #fff;
+      padding: 14px 28px; border-radius: 50px;
+      font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; margin-top: 1.2rem;
+      transition: all 0.3s; border: none; cursor: pointer;
+    }
+    .btn-whatsapp:hover { background: #1ebe59; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.35); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.6);
+      padding: 60px 5% 30px;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 2rem; flex-wrap: wrap; margin-bottom: 3rem;
+      padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand .nav-logo { font-size: 1.6rem; display: block; margin-bottom: 0.8rem; }
+    .footer-brand p { font-size: 0.88rem; max-width: 260px; line-height: 1.6; }
+    .footer-links h4 { color: var(--white); font-size: 0.9rem; margin-bottom: 1rem; }
+    .footer-links ul { list-style: none; }
+    .footer-links ul li { margin-bottom: 0.6rem; }
+    .footer-links ul a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-links ul a:hover { color: var(--gold); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.82rem; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom a { color: var(--gold); text-decoration: none; }
+
+    /* ── BLOG ── */
+    #consejos { background: var(--white); }
+    .blog-header { text-align: center; margin-bottom: 4rem; }
+    .blog-header .section-subtitle { margin: 0 auto; }
+
+    .blog-filter {
+      display: flex; gap: 0.6rem; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 3rem;
+    }
+    .filter-btn {
+      padding: 8px 20px; border-radius: 50px;
+      border: 2px solid #e8edf2; background: transparent;
+      font-size: 0.83rem; font-weight: 600; cursor: pointer;
+      color: var(--gray); transition: all 0.25s; font-family: 'Inter', sans-serif;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--accent); border-color: var(--accent); color: var(--white);
+    }
+
+    .blog-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem; max-width: 1200px; margin: 0 auto;
+    }
+    .blog-card {
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      transition: all 0.4s ease; background: var(--white);
+      border: 1px solid rgba(0,0,0,0.05);
+      display: flex; flex-direction: column;
+    }
+    .blog-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+    .blog-card.hidden { display: none; }
+
+    .blog-thumb {
+      aspect-ratio: 16/9; position: relative; overflow: hidden;
+    }
+    .blog-thumb-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      transition: transform 0.5s ease;
+    }
+    .blog-card:hover .blog-thumb-inner { transform: scale(1.06); }
+
+    .blog-cat {
+      position: absolute; top: 14px; left: 14px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 5px 12px;
+      border-radius: 50px; color: var(--white);
+    }
+    .cat-higiene   { background: #2d7dd2; }
+    .cat-ortodoncia{ background: #7c3aed; }
+    .cat-blanqueamiento { background: #d97706; }
+    .cat-implantes { background: #059669; }
+    .cat-nutricion { background: #db2777; }
+    .cat-general   { background: #0891b2; }
+
+    .blog-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .blog-meta {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.77rem; color: var(--gray); margin-bottom: 0.8rem;
+    }
+    .blog-meta span { display: flex; align-items: center; gap: 4px; }
+    .blog-title {
+      font-size: 1.05rem; font-weight: 700; line-height: 1.4;
+      margin-bottom: 0.7rem; color: var(--navy);
+    }
+    .blog-excerpt {
+      font-size: 0.87rem; color: var(--gray); line-height: 1.6;
+      flex: 1; margin-bottom: 1.2rem;
+    }
+    .blog-read {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.83rem; font-weight: 700; color: var(--accent);
+      cursor: pointer; border: none; background: none;
+      font-family: 'Inter', sans-serif; padding: 0;
+      transition: gap 0.2s;
+    }
+    .blog-read:hover { gap: 10px; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: rgba(10,22,40,0.7); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal-box {
+      background: var(--white); border-radius: 24px;
+      max-width: 680px; width: 100%; max-height: 85vh;
+      overflow-y: auto; position: relative;
+      transform: translateY(30px); transition: transform 0.3s;
+    }
+    .modal-overlay.open .modal-box { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 16px; right: 16px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--soft); border: none; cursor: pointer;
+      font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; z-index: 1;
+    }
+    .modal-close:hover { background: #e2e8f0; }
+    .modal-thumb {
+      width: 100%; aspect-ratio: 16/7;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; border-radius: 24px 24px 0 0;
+    }
+    .modal-content { padding: 2rem 2.5rem 2.5rem; }
+    .modal-cat { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.8rem; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
+    .modal-meta { font-size: 0.8rem; color: var(--gray); margin-bottom: 1.5rem; }
+    .modal-body { font-size: 0.95rem; line-height: 1.8; color: #374151; }
+    .modal-body h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 0.5rem; }
+    .modal-body ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+    .modal-body ul li { margin-bottom: 0.4rem; }
+    .modal-body p { margin-bottom: 0.8rem; }
+    .modal-cta {
+      margin-top: 2rem; padding-top: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+
+    .blog-more { text-align: center; margin-top: 3rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #nosotros, #contacto { grid-template-columns: 1fr; gap: 3rem; }
+      .about-badge-float { right: 0; }
+      .hero-stats { display: none; }
+      .time-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      nav .nav-links { display: none; }
+      .form-grid { grid-template-columns: 1fr; }
+      .time-grid { grid-template-columns: repeat(2, 1fr); }
+      .booking-tabs .booking-tab { font-size: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo">Dental<span>J</span></div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#testimonios">Testimonios</a></li>
+    <li><a href="#consejos">Consejos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('reservas').scrollIntoView({behavior:'smooth'})">Reservar hora</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-circles">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">Clínica en Providencia</div>
+    <h1 class="hero-title">
+      Tu sonrisa,<br>nuestra <em>pasión</em>
+    </h1>
+    <p class="hero-subtitle">
+      En Clínica Dental J combinamos tecnología de vanguardia con atención personalizada para resolver todos tus problemas dentales con confianza y comodidad.
+    </p>
+    <div class="hero-btns">
+      <a href="#reservas" class="btn-primary">Reservar hora online</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="2400">0</span>+</div>
+      <div class="hero-stat-label">Pacientes</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="12">0</span></div>
+      <div class="hero-stat-label">Años de exp.</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="98">0</span>%</div>
+      <div class="hero-stat-label">Satisfacción</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="services-header reveal">
+    <div class="section-tag">Nuestros tratamientos</div>
+    <h2 class="section-title">Soluciones para cada <em>necesidad</em></h2>
+    <p class="section-subtitle">Ofrecemos una completa gama de tratamientos dentales para que cuides tu salud bucal en un solo lugar.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal delay-1">
+      <div class="service-icon">🦷</div>
+      <div class="service-name">Limpieza Dental</div>
+      <p class="service-desc">Eliminamos sarro y placa bacteriana con ultrasonido profesional para mantener tus encías sanas y tu sonrisa brillante.</p>
+      <div class="service-price">
+        <span class="price-label">Desde</span>
+        <span class="price-value">$25.000</span>
+      </div>
+    </div>
+    <div class="service-card reveal delay-2">
+      <div class="service-icon">✨</div>
+      <div class="service-name">Blanqueamiento</div>
+      <p class="service-desc">Tratamiento profesional en consulta con resultados visibles desde la primera sesión. Hasta 8 tonos más blanco.</p>
+      <div class="service-price">
+        <span class="price-label">Desde</span>
+        <span class="price-value">$180.000</span>
+      </div>
+    </div>
+    <div class="service-card reveal delay-3">
+      <div class="service-icon">😁</div>
+      <div class="service-name">Ortodoncia</div>
+      <p class="service-desc">Brackets metálicos, cerámicos o alineadores transparentes para corregir tu mordida y alinear tus dientes.</p>
+      <div class="service-price">
+        <span class="price-label">Desde</span>
+        <span class="price-value">$450.000</span>
+      </div>
+    </div>
+    <div class="service-card reveal delay-1">
+      <div class="service-icon">🔩</div>
+      <div class="service-name">Implantes Dentales</div>
+      <p class="service-desc">Reemplazos permanentes de titanio con corona cerámica. La solución más natural y duradera para dientes perdidos.</p>
+      <div class="service-price">
+        <span class="price-label">Desde</span>
+        <span class="price-value">$650.000</span>
+      </div>
+    </div>
+    <div class="service-card reveal delay-2">
+      <div class="service-icon">🚨</div>
+      <div class="service-name">Urgencias</div>
+      <p class="service-desc">Atención prioritaria para dolores agudos, fracturas o accidentes dentales. Te atendemos el mismo día.</p>
+      <div class="service-price">
+        <span class="price-label">Desde</span>
+        <span class="price-value">$35.000</span>
+      </div>
+    </div>
+    <div class="service-card reveal delay-3">
+      <div class="service-icon">🏥</div>
+      <div class="service-name">Odontología Integral</div>
+      <p class="service-desc">Diagnóstico completo con radiografías digitales, plan de tratamiento personalizado y seguimiento continuo.</p>
+      <div class="service-price">
+        <span class="price-label">Consulta</span>
+        <span class="price-value">$20.000</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros" style="padding:100px 5%;">
+  <div class="about-visual reveal-left">
+    <div class="about-img-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      <p>📸 Añade aquí una foto de la clínica</p>
+    </div>
+    <div class="about-badge-float">
+      <div class="about-badge-icon">🏆</div>
+      <div class="about-badge-text">
+        <strong>+12</strong>
+        <span>Años de excelencia</span>
+      </div>
+    </div>
+  </div>
+  <div class="reveal-right">
+    <div class="section-tag">Quiénes somos</div>
+    <h2 class="section-title">Más que una clínica,<br>una <em>familia dental</em></h2>
+    <p class="section-subtitle">Fundada en 2012 en el corazón de Providencia, Clínica Dental J nació con una misión clara: hacer que el cuidado dental sea accesible, cómodo y de alta calidad para todos.</p>
+    <ul class="about-features">
+      <li>
+        <div class="feature-check">✓</div>
+        <div class="feature-text">
+          <strong>Tecnología de última generación</strong>
+          <span>Equipos digitales de radiografía, scanner intraoral 3D y láseres dentales.</span>
+        </div>
+      </li>
+      <li>
+        <div class="feature-check">✓</div>
+        <div class="feature-text">
+          <strong>Atención sin dolor</strong>
+          <span>Protocolos de sedación y anestesia local de alta eficacia para tu comodidad.</span>
+        </div>
+      </li>
+      <li>
+        <div class="feature-check">✓</div>
+        <div class="feature-text">
+          <strong>Convenios con Isapres y Fonasa</strong>
+          <span>Trabajamos con los principales sistemas de salud para que accedas a mejores precios.</span>
+        </div>
+      </li>
+      <li>
+        <div class="feature-check">✓</div>
+        <div class="feature-text">
+          <strong>Ubicación central en Providencia</strong>
+          <span>A pasos del metro, con estacionamiento disponible para tu comodidad.</span>
+        </div>
+      </li>
+    </ul>
+    <a href="#reservas" class="btn-primary">Agenda tu primera consulta</a>
+  </div>
+</section>
+
+<!-- EQUIPO -->
+<section id="equipo">
+  <div class="team-header reveal">
+    <div class="section-tag">Nuestro equipo</div>
+    <h2 class="section-title">Profesionales con <em>vocación</em></h2>
+    <p class="section-subtitle">Dentistas especializados, con formación internacional y un genuino compromiso con tu bienestar.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal delay-1">
+      <div class="team-photo">
+        <span style="font-size:3rem;opacity:0.25;">👨‍⚕️</span>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dr. Andrés Morales</div>
+        <div class="team-role">Director — Cirujano Dentista</div>
+        <p class="team-desc">Especialista en implantología y cirugía oral con más de 14 años de experiencia. Formación en la Universidad de Chile y postgrado en España.</p>
+      </div>
+    </div>
+    <div class="team-card reveal delay-2">
+      <div class="team-photo">
+        <span style="font-size:3rem;opacity:0.25;">👩‍⚕️</span>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dra. Valentina Reyes</div>
+        <div class="team-role">Ortodoncista</div>
+        <p class="team-desc">Especialista certificada en ortodoncia invisible y brackets cerámicos. Postgrado en la Pontificia Universidad Católica de Chile.</p>
+      </div>
+    </div>
+    <div class="team-card reveal delay-3">
+      <div class="team-photo">
+        <span style="font-size:3rem;opacity:0.25;">👨‍⚕️</span>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Dr. Sebastián Castro</div>
+        <div class="team-role">Odontólogo General</div>
+        <p class="team-desc">Experto en odontología estética y blanqueamiento dental. Comprometido con la atención preventiva y educación del paciente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVAS -->
+<section id="reservas">
+  <div class="booking-header reveal">
+    <div class="section-tag">Reserva tu hora</div>
+    <h2 class="section-title">Agenda en línea,<br><em>rápido y fácil</em></h2>
+    <p class="section-subtitle">Elige el día y hora que mejor te acomode. Confirmamos tu cita por correo y WhatsApp.</p>
+  </div>
+
+  <div class="booking-container reveal">
+    <div class="booking-tabs">
+      <div class="booking-tab active" id="tab1">
+        <span class="step-num">1</span> Elige fecha
+      </div>
+      <div class="booking-tab" id="tab2">
+        <span class="step-num">2</span> Elige hora
+      </div>
+      <div class="booking-tab" id="tab3">
+        <span class="step-num">3</span> Tus datos
+      </div>
+    </div>
+
+    <div class="booking-body">
+
+      <!-- Step 1: Calendar -->
+      <div class="booking-step active" id="step1">
+        <div class="cal-header">
+          <button class="cal-nav" id="calPrev">‹</button>
+          <div class="cal-month" id="calMonth"></div>
+          <button class="cal-nav" id="calNext">›</button>
+        </div>
+        <div class="cal-days-header">
+          <div class="cal-day-name">Lun</div>
+          <div class="cal-day-name">Mar</div>
+          <div class="cal-day-name">Mié</div>
+          <div class="cal-day-name">Jue</div>
+          <div class="cal-day-name">Vie</div>
+          <div class="cal-day-name">Sáb</div>
+          <div class="cal-day-name">Dom</div>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="booking-nav">
+          <span></span>
+          <button class="btn-book-next" id="toStep2" disabled>Elegir hora →</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Time -->
+      <div class="booking-step" id="step2">
+        <p class="time-heading" id="dateTitle">Horarios disponibles</p>
+        <div class="time-grid" id="timeGrid"></div>
+        <div class="booking-nav">
+          <button class="btn-book-back" id="backToStep1">← Volver</button>
+          <button class="btn-book-next" id="toStep3" disabled>Mis datos →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Form -->
+      <div class="booking-step" id="step3">
+        <div class="booking-summary" id="bookingSummary"></div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text" id="bookName" placeholder="Tu nombre">
+            <span class="field-error" id="errName"></span>
+          </div>
+          <div class="form-group">
+            <label>Apellido *</label>
+            <input type="text" id="bookLastname" placeholder="Tu apellido">
+            <span class="field-error" id="errLastname"></span>
+          </div>
+          <div class="form-group">
+            <label>Teléfono * <small style="color:var(--gray);font-weight:400">(ej: +56 9 1234 5678)</small></label>
+            <input type="tel" id="bookPhone" placeholder="+56 9 XXXX XXXX">
+            <span class="field-error" id="errPhone"></span>
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" id="bookEmail" placeholder="tu@correo.cl">
+            <span class="field-error" id="errEmail"></span>
+          </div>
+          <div class="form-group full">
+            <label>Servicio *</label>
+            <select id="bookService">
+              <option value="">Selecciona un tratamiento</option>
+              <option>Limpieza dental</option>
+              <option>Blanqueamiento</option>
+              <option>Ortodoncia</option>
+              <option>Implante dental</option>
+              <option>Urgencia dental</option>
+              <option>Consulta general</option>
+            </select>
+            <span class="field-error" id="errService"></span>
+          </div>
+        </div>
+        <div class="booking-nav">
+          <button class="btn-book-back" id="backToStep2">← Volver</button>
+          <button class="btn-book-next" id="confirmBook">Confirmar reserva ✓</button>
+        </div>
+      </div>
+
+      <!-- Success -->
+      <div class="booking-step" id="stepSuccess">
+        <div class="booking-success">
+          <div class="check-icon">✅</div>
+          <h3>¡Hora reservada con éxito!</h3>
+          <p id="successMsg">Tu cita ha sido registrada.</p>
+          <a id="waLink" href="#" target="_blank" class="btn-whatsapp">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.857L.054 23.5a.5.5 0 00.612.612l5.666-1.484A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.693-.511-5.228-1.4l-.374-.22-3.88 1.016 1.033-3.767-.242-.388A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Confirmar por WhatsApp
+          </a>
+          <br>
+          <button class="btn-book-back" onclick="resetBooking()" style="margin-top:0.8rem;">Hacer otra reserva</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios">
+  <div class="testimonios-header reveal">
+    <div class="section-tag">Lo que dicen nuestros pacientes</div>
+    <h2 class="section-title">Miles de sonrisas <em>transformadas</em></h2>
+    <p class="section-subtitle">La satisfacción de nuestros pacientes es el mejor certificado de calidad que podemos tener.</p>
+  </div>
+  <div class="testimonios-grid">
+    <div class="testimonial-card reveal delay-1">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Llevaba años con miedo al dentista y en Dental J encontré un equipo increíblemente humano. El Dr. Morales me puso un implante sin dolor y el resultado es perfecto. ¡No lo dudaría ni un segundo!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">CM</div>
+        <div>
+          <div class="author-name">Carolina M.</div>
+          <div class="author-meta">Paciente — Implante dental</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal delay-2">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"La Dra. Valentina me hizo un seguimiento impecable durante toda mi ortodoncia. Ahora tengo la sonrisa que siempre quise. El trato es súper cercano y profesional a la vez."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">FP</div>
+        <div>
+          <div class="author-name">Felipe P.</div>
+          <div class="author-meta">Paciente — Ortodoncia</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal delay-3">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"Tuve una urgencia un sábado y me atendieron en menos de una hora. El servicio fue rapidísimo, el Dr. Castro resolvió el problema de inmediato y quedé sin dolor. ¡Excelente clínica!"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">LA</div>
+        <div>
+          <div class="author-name">Lorena A.</div>
+          <div class="author-meta">Paciente — Urgencia</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal delay-1">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"El blanqueamiento que me hizo el Dr. Castro fue increíble. En una sola sesión mis dientes cambiaron varios tonos. Muy recomendado para quienes quieren resultados rápidos y seguros."</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">RG</div>
+        <div>
+          <div class="author-name">Roberto G.</div>
+          <div class="author-meta">Paciente — Blanqueamiento</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSEJOS / BLOG -->
+<section id="consejos">
+  <div class="blog-header reveal">
+    <div class="section-tag">Blog de salud bucal</div>
+    <h2 class="section-title">Consejos para tu <em>sonrisa</em></h2>
+    <p class="section-subtitle">Aprende cómo cuidar tu salud bucal con los mejores tips de nuestro equipo de especialistas.</p>
+  </div>
+
+  <div class="blog-filter reveal">
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn" data-filter="higiene">Higiene</button>
+    <button class="filter-btn" data-filter="ortodoncia">Ortodoncia</button>
+    <button class="filter-btn" data-filter="blanqueamiento">Blanqueamiento</button>
+    <button class="filter-btn" data-filter="implantes">Implantes</button>
+    <button class="filter-btn" data-filter="nutricion">Nutrición</button>
+  </div>
+
+  <div class="blog-grid" id="blogGrid">
+
+    <div class="blog-card reveal delay-1" data-cat="higiene">
+      <div class="blog-thumb">
+        <div class="blog-thumb-inner" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);">🦷</div>
+        <span class="blog-cat cat-higiene">Higiene</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>🕐 3 min lectura</span>
+          <span>📅 12 mayo 2025</span>
+        </div>
+        <div class="blog-title">Cómo cepillarte los dientes correctamente en 3 pasos</div>
+        <p class="blog-excerpt">La técnica es más importante que la fuerza. Aprende la técnica de Bass modificada que usan los dentistas para una limpieza profunda sin dañar el esmalte.</p>
+        <button class="blog-read" onclick="openPost(0)">Leer artículo →</button>
+      </div>
+    </div>
+
+    <div class="blog-card reveal delay-2" data-cat="blanqueamiento">
+      <div class="blog-thumb">
+        <div class="blog-thumb-inner" style="background:linear-gradient(135deg,#fef9c3,#fde68a);">✨</div>
+        <span class="blog-cat cat-blanqueamiento">Blanqueamiento</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>🕐 4 min lectura</span>
+          <span>📅 5 mayo 2025</span>
+        </div>
+        <div class="blog-title">¿Blanqueamiento casero o profesional? Toda la verdad</div>
+        <p class="blog-excerpt">Las tiras y kits del supermercado prometen mucho pero los resultados son muy distintos a los de una sesión profesional. Te explicamos por qué y qué esperar de cada uno.</p>
+        <button class="blog-read" onclick="openPost(1)">Leer artículo →</button>
+      </div>
+    </div>
+
+    <div class="blog-card reveal delay-3" data-cat="ortodoncia">
+      <div class="blog-thumb">
+        <div class="blog-thumb-inner" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);">😁</div>
+        <span class="blog-cat cat-ortodoncia">Ortodoncia</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>🕐 5 min lectura</span>
+          <span>📅 28 abril 2025</span>
+        </div>
+        <div class="blog-title">Brackets vs alineadores: ¿cuál es la mejor opción para ti?</div>
+        <p class="blog-excerpt">Cada tratamiento tiene sus ventajas. Te explicamos las diferencias reales en tiempo, comodidad, precio y resultados para que tomes la mejor decisión.</p>
+        <button class="blog-read" onclick="openPost(2)">Leer artículo →</button>
+      </div>
+    </div>
+
+    <div class="blog-card reveal delay-1" data-cat="nutricion">
+      <div class="blog-thumb">
+        <div class="blog-thumb-inner" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8);">🥗</div>
+        <span class="blog-cat cat-nutricion">Nutrición</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>🕐 3 min lectura</span>
+          <span>📅 20 abril 2025</span>
+        </div>
+        <div class="blog-title">10 alimentos que dañan tus dientes sin que lo sepas</div>
+        <p class="blog-excerpt">Algunos alimentos considerados "sanos" como el jugo de naranja o las frutas secas pueden ser los mayores enemigos de tu esmalte dental. Descubre cuáles son y cómo protegerte.</p>
+        <button class="blog-read" onclick="openPost(3)">Leer artículo →</button>
+      </div>
+    </div>
+
+    <div class="blog-card reveal delay-2" data-cat="implantes">
+      <div class="blog-thumb">
+        <div class="blog-thumb-inner" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);">🔩</div>
+        <span class="blog-cat cat-implantes">Implantes</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>🕐 6 min lectura</span>
+          <span>📅 14 abril 2025</span>
+        </div>
+        <div class="blog-title">Todo lo que debes saber antes de ponerte un implante dental</div>
+        <p class="blog-excerpt">¿Duele? ¿Cuánto dura? ¿Es para toda la vida? Respondemos las 8 preguntas más frecuentes sobre los implantes dentales de titanio con información real y sin rodeos.</p>
+        <button class="blog-read" onclick="openPost(4)">Leer artículo →</button>
+      </div>
+    </div>
+
+    <div class="blog-card reveal delay-3" data-cat="higiene">
+      <div class="blog-thumb">
+        <div class="blog-thumb-inner" style="background:linear-gradient(135deg,#cffafe,#a5f3fc);">💧</div>
+        <span class="blog-cat cat-higiene">Higiene</span>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>🕐 4 min lectura</span>
+          <span>📅 7 abril 2025</span>
+        </div>
+        <div class="blog-title">¿Hilo dental o irrigador? El debate que termina aquí</div>
+        <p class="blog-excerpt">El hilo dental sigue siendo el estándar de oro pero el irrigador oral tiene ventajas claras en ciertos casos. Te decimos cuándo usar cada uno y si realmente puedes combinarlos.</p>
+        <button class="blog-read" onclick="openPost(5)">Leer artículo →</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="blog-more reveal">
+    <button class="btn-secondary" style="color:var(--navy);border-color:#cbd5e1;" id="btnShowMore" onclick="showMorePosts()">Ver más artículos</button>
+  </div>
+</section>
+
+<!-- MODAL BLOG -->
+<div class="modal-overlay" id="modalOverlay" onclick="closePostIfOutside(event)">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closePost()">✕</button>
+    <div class="modal-thumb" id="modalThumb"></div>
+    <div class="modal-content">
+      <div class="modal-cat" id="modalCat"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-meta" id="modalMeta"></div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-cta">
+        <span style="font-size:0.9rem;color:var(--gray);">¿Tienes dudas? Nuestro equipo puede ayudarte.</span>
+        <a href="#reservas" class="btn-primary" onclick="closePost()" style="padding:10px 22px;font-size:0.88rem;">Reservar hora</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTO -->
+<div id="contacto">
+  <div class="contact-info reveal-left">
+    <div class="section-tag">Contáctanos</div>
+    <h2 class="section-title">Estamos aquí para <em>ayudarte</em></h2>
+    <p class="section-subtitle" style="margin-bottom:2.5rem;">No dejes para mañana lo que puede mejorarte hoy. Comunícate con nosotros por cualquiera de estos medios.</p>
+    <div class="contact-item">
+      <div class="contact-icon">📍</div>
+      <div>
+        <strong>Dirección</strong>
+        <span>Av. Providencia 1234, Oficina 502<br>Providencia, Región Metropolitana</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">📞</div>
+      <div>
+        <strong>Teléfono</strong>
+        <span>+56 9 8234 5671</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">✉️</div>
+      <div>
+        <strong>Email</strong>
+        <span>contacto@clinicadentaj.cl</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">🕐</div>
+      <div>
+        <strong>Horario de atención</strong>
+        <span>Lunes a Viernes: 9:00 – 19:00<br>Sábado: 9:00 – 14:00</span>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form reveal-right">
+    <h3>Envíanos un mensaje</h3>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" placeholder="Tu nombre">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="tu@correo.cl">
+      </div>
+      <div class="form-group full">
+        <label>Asunto</label>
+        <input type="text" placeholder="¿En qué podemos ayudarte?">
+      </div>
+      <div class="form-group full">
+        <label>Mensaje</label>
+        <textarea placeholder="Escríbenos tu consulta o comentario..."></textarea>
+      </div>
+    </div>
+    <button class="btn-submit" onclick="this.textContent='✓ Mensaje enviado'; this.style.background='#16a34a'">Enviar mensaje</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="nav-logo">Dental<span>J</span></span>
+      <p>Tu salud bucal es nuestra prioridad. Cuidamos de tu sonrisa con tecnología, experiencia y calidez humana.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="#">Limpieza dental</a></li>
+        <li><a href="#">Blanqueamiento</a></li>
+        <li><a href="#">Ortodoncia</a></li>
+        <li><a href="#">Implantes</a></li>
+        <li><a href="#">Urgencias</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Clínica</h4>
+      <ul>
+        <li><a href="#nosotros">Quiénes somos</a></li>
+        <li><a href="#equipo">Nuestro equipo</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#reservas">Reservar hora</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="#">+56 9 8234 5671</a></li>
+        <li><a href="#">contacto@clinicadentaj.cl</a></li>
+        <li><a href="#">Providencia, RM</a></li>
+        <li><a href="#">Lun–Vie 9:00–19:00</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Clínica Dental J. Todos los derechos reservados.</span>
+    <span>Diseñado con ❤️ en Chile</span>
+  </div>
+</footer>
+
+<script>
+  // ── NAV SCROLL ──
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── SCROLL REVEAL ──
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── COUNTERS ──
+  const counters = document.querySelectorAll('.counter');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const target = +e.target.dataset.target;
+        const step = target / 60;
+        let current = 0;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) { current = target; clearInterval(timer); }
+          e.target.textContent = Math.floor(current).toLocaleString();
+        }, 25);
+        counterObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => counterObserver.observe(c));
+
+  // ── CALENDAR ──
+  let currentYear, currentMonth, selectedDate = null, selectedTime = null;
+  const today = new Date();
+  currentYear = today.getFullYear();
+  currentMonth = today.getMonth();
+
+  const months = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const unavailableTimes = ['09:00','11:30','14:00','16:30'];
+
+  function renderCalendar() {
+    const grid = document.getElementById('calGrid');
+    document.getElementById('calMonth').textContent = `${months[currentMonth]} ${currentYear}`;
+    grid.innerHTML = '';
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const offset = (firstDay === 0) ? 6 : firstDay - 1;
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    for (let i = 0; i < offset; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell empty';
+      grid.appendChild(cell);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      const cellDate = new Date(currentYear, currentMonth, d);
+      const isPast = cellDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const isSunday = cellDate.getDay() === 0;
+      const isToday = cellDate.toDateString() === today.toDateString();
+      const isSelected = selectedDate && cellDate.toDateString() === selectedDate.toDateString();
+
+      cell.textContent = d;
+      cell.className = 'cal-cell';
+      if (isPast || isSunday) cell.classList.add('past');
+      else cell.classList.add('available');
+      if (isToday) cell.classList.add('today');
+      if (isSelected) cell.classList.add('selected');
+
+      if (!isPast && !isSunday) {
+        cell.addEventListener('click', () => {
+          selectedDate = new Date(currentYear, currentMonth, d);
+          renderCalendar();
+          document.getElementById('toStep2').disabled = false;
+        });
+      }
+      grid.appendChild(cell);
+    }
+  }
+
+  document.getElementById('calPrev').addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+    renderCalendar();
+  });
+  document.getElementById('calNext').addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    renderCalendar();
+  });
+
+  renderCalendar();
+
+  function goToStep(n) {
+    document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.booking-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+    const tab = document.getElementById('tab' + n);
+    if (tab) tab.classList.add('active');
+  }
+
+  document.getElementById('toStep2').addEventListener('click', () => {
+    const days = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+    const d = selectedDate;
+    document.getElementById('dateTitle').textContent =
+      `Horarios para el ${days[d.getDay()]} ${d.getDate()} de ${months[d.getMonth()]}`;
+    renderTimeSlots();
+    goToStep(2);
+  });
+
+  function renderTimeSlots() {
+    const grid = document.getElementById('timeGrid');
+    grid.innerHTML = '';
+    const slots = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30'];
+    slots.forEach(t => {
+      const btn = document.createElement('div');
+      btn.className = 'time-slot';
+      btn.textContent = t;
+      if (unavailableTimes.includes(t)) {
+        btn.classList.add('unavailable');
+      } else {
+        if (selectedTime === t) btn.classList.add('selected');
+        btn.addEventListener('click', () => {
+          selectedTime = t;
+          document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+          btn.classList.add('selected');
+          document.getElementById('toStep3').disabled = false;
+        });
+      }
+      grid.appendChild(btn);
+    });
+  }
+
+  document.getElementById('backToStep1').addEventListener('click', () => goToStep(1));
+  document.getElementById('toStep3').addEventListener('click', () => {
+    const d = selectedDate;
+    const days = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+    document.getElementById('bookingSummary').innerHTML = `
+      <div class="booking-summary-title">Resumen de tu reserva</div>
+      <div class="booking-summary-row"><span>Fecha</span><strong>${days[d.getDay()]} ${d.getDate()} de ${months[d.getMonth()]} ${d.getFullYear()}</strong></div>
+      <div class="booking-summary-row"><span>Hora</span><strong>${selectedTime} hrs</strong></div>
+    `;
+    goToStep(3);
+  });
+  document.getElementById('backToStep2').addEventListener('click', () => goToStep(2));
+
+  // ── VALIDATION HELPERS ──
+  function validatePhone(raw) {
+    const digits = raw.replace(/\D/g, '');
+    // Acepta: 9XXXXXXXX (9 dígitos), 569XXXXXXXX (11 dígitos con código país)
+    if (digits.length === 9 && digits.startsWith('9')) return true;
+    if (digits.length === 11 && digits.startsWith('569')) return true;
+    return false;
+  }
+
+  function validateEmail(raw) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw.trim());
+  }
+
+  function setFieldState(inputId, errorId, valid, errorMsg) {
+    const input = document.getElementById(inputId);
+    const err   = document.getElementById(errorId);
+    input.classList.toggle('error', !valid);
+    input.classList.toggle('ok', valid);
+    err.textContent = valid ? '' : errorMsg;
+    return valid;
+  }
+
+  // Live validation on blur
+  document.getElementById('bookPhone').addEventListener('blur', function() {
+    setFieldState('bookPhone', 'errPhone', validatePhone(this.value),
+      'Ingresa un número chileno válido (ej: +56 9 1234 5678)');
+  });
+  document.getElementById('bookEmail').addEventListener('blur', function() {
+    setFieldState('bookEmail', 'errEmail', validateEmail(this.value),
+      'Ingresa un email válido (ej: tu@correo.cl)');
+  });
+  ['bookName','bookLastname'].forEach(id => {
+    document.getElementById(id).addEventListener('blur', function() {
+      setFieldState(id, 'err' + id.replace('book',''), this.value.trim().length >= 2,
+        'Este campo es obligatorio');
+    });
+  });
+  document.getElementById('bookService').addEventListener('change', function() {
+    setFieldState('bookService', 'errService', this.value !== '', 'Selecciona un servicio');
+  });
+
+  document.getElementById('confirmBook').addEventListener('click', () => {
+    const name     = document.getElementById('bookName').value.trim();
+    const lastname = document.getElementById('bookLastname').value.trim();
+    const phone    = document.getElementById('bookPhone').value.trim();
+    const email    = document.getElementById('bookEmail').value.trim();
+    const service  = document.getElementById('bookService').value;
+
+    const okName     = setFieldState('bookName',    'errName',    name.length >= 2,         'Ingresa tu nombre');
+    const okLastname = setFieldState('bookLastname','errLastname',lastname.length >= 2,      'Ingresa tu apellido');
+    const okPhone    = setFieldState('bookPhone',   'errPhone',   validatePhone(phone),      'Número inválido — ej: +56 9 1234 5678');
+    const okEmail    = setFieldState('bookEmail',   'errEmail',   validateEmail(email),      'Email inválido — ej: tu@correo.cl');
+    const okService  = setFieldState('bookService', 'errService', service !== '',            'Selecciona un servicio');
+
+    if (!okName || !okLastname || !okPhone || !okEmail || !okService) return;
+
+    const d    = selectedDate;
+    const days = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+    const dateStr = `${days[d.getDay()]} ${d.getDate()} de ${months[d.getMonth()]} ${d.getFullYear()}`;
+
+    document.getElementById('successMsg').textContent =
+      `${name}, tu cita para ${service} el ${dateStr} a las ${selectedTime} hrs fue registrada correctamente.`;
+
+    // Construye link WhatsApp para que el cliente confirme al número de la clínica
+    const clinicPhone = '56982345671';
+    const msg = encodeURIComponent(
+      `Hola, Clínica Dental J 👋\nQuiero confirmar mi reserva:\n• Nombre: ${name} ${lastname}\n• Servicio: ${service}\n• Fecha: ${dateStr}\n• Hora: ${selectedTime} hrs\n• Email: ${email}`
+    );
+    document.getElementById('waLink').href = `https://wa.me/${clinicPhone}?text=${msg}`;
+
+    document.querySelectorAll('.booking-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+    document.getElementById('stepSuccess').classList.add('active');
+  });
+
+  function resetBooking() {
+    selectedDate = null; selectedTime = null;
+    document.getElementById('toStep2').disabled = true;
+    document.getElementById('toStep3').disabled = true;
+    document.getElementById('bookName').value = '';
+    document.getElementById('bookLastname').value = '';
+    document.getElementById('bookPhone').value = '';
+    document.getElementById('bookEmail').value = '';
+    document.getElementById('bookService').value = '';
+    renderCalendar();
+    document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.booking-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('tab1').classList.add('active');
+  }
+
+  // ── BLOG ──
+  const posts = [
+    {
+      emoji: '🦷', bg: 'linear-gradient(135deg,#dbeafe,#bfdbfe)',
+      cat: 'Higiene', catClass: 'cat-higiene',
+      title: 'Cómo cepillarte los dientes correctamente en 3 pasos',
+      meta: '🕐 3 min lectura · 12 mayo 2025 · Por Dr. Sebastián Castro',
+      body: `
+        <p>La mayoría de las personas se cepilla los dientes todos los días, pero pocos lo hacen de forma correcta. Una mala técnica puede dejar placa bacteriana en zonas críticas incluso después de tres minutos de cepillado.</p>
+        <h4>Paso 1 — La posición correcta del cepillo</h4>
+        <p>Coloca el cepillo en un ángulo de 45° respecto a la encía. Esto es la <strong>técnica de Bass</strong>, el estándar recomendado por la Asociación Dental Americana. El cabezal debe cubrir 2-3 dientes a la vez.</p>
+        <h4>Paso 2 — El movimiento</h4>
+        <p>Realiza pequeños movimientos circulares o vibratorios sin presión excesiva. Nunca barrer horizontalmente: es el error más común y el que más daña el esmalte y las encías a largo plazo.</p>
+        <h4>Paso 3 — El orden y el tiempo</h4>
+        <p>Divide la boca en 4 cuadrantes y dedica 30 segundos a cada uno: un total de <strong>2 minutos mínimos</strong>. Empieza siempre por el mismo lado para no olvidar ninguna zona.</p>
+        <h4>Consejos extra</h4>
+        <ul>
+          <li>Cambia tu cepillo cada 3 meses o cuando las cerdas se deformen.</li>
+          <li>Usa pasta con flúor: el componente clave para proteger el esmalte.</li>
+          <li>Cepilla también la lengua: alberga más bacterias que los dientes.</li>
+          <li>Espera 30 minutos después de comer ácidos antes de cepillarte.</li>
+        </ul>
+        <p>¿Tienes sensibilidad al cepillar? Puede ser señal de encías inflamadas o esmalte desgastado. Consúltanos.</p>
+      `
+    },
+    {
+      emoji: '✨', bg: 'linear-gradient(135deg,#fef9c3,#fde68a)',
+      cat: 'Blanqueamiento', catClass: 'cat-blanqueamiento',
+      title: '¿Blanqueamiento casero o profesional? Toda la verdad',
+      meta: '🕐 4 min lectura · 5 mayo 2025 · Por Dra. Valentina Reyes',
+      body: `
+        <p>El mercado está inundado de productos que prometen dientes más blancos en pocos días. Pero, ¿qué dice realmente la evidencia clínica?</p>
+        <h4>Productos de venta libre</h4>
+        <p>Las tiras blanqueadoras y kits caseros contienen <strong>peróxido de hidrógeno al 3-10%</strong>. Pueden mejorar entre 1 y 3 tonos con uso constante, pero sus resultados son lentos, irregulares y pueden causar sensibilidad dental si se usan más de lo indicado.</p>
+        <h4>Blanqueamiento profesional en clínica</h4>
+        <p>Usamos geles con concentraciones de hasta el <strong>35-40%</strong> activados con lámpara LED. Una sesión de 60 minutos equivale a semanas de uso de productos caseros, con resultados de hasta 8 tonos más blanco y un control preciso de la sensibilidad.</p>
+        <h4>¿Cuándo NO blanquear?</h4>
+        <ul>
+          <li>Si tienes caries activas sin tratar.</li>
+          <li>Si tienes coronas o carillas (no aclaran igual que el diente natural).</li>
+          <li>Durante el embarazo o lactancia.</li>
+          <li>Si sufres de hipersensibilidad severa.</li>
+        </ul>
+        <p>Lo más importante: cualquier blanqueamiento debe estar precedido de una limpieza profesional. ¿Te interesa? Agenda una consulta y te evaluamos.</p>
+      `
+    },
+    {
+      emoji: '😁', bg: 'linear-gradient(135deg,#ede9fe,#ddd6fe)',
+      cat: 'Ortodoncia', catClass: 'cat-ortodoncia',
+      title: 'Brackets vs alineadores: ¿cuál es la mejor opción para ti?',
+      meta: '🕐 5 min lectura · 28 abril 2025 · Por Dra. Valentina Reyes',
+      body: `
+        <p>Esta es la pregunta que más nos hacen los pacientes que consultan por ortodoncia. La respuesta honesta es: <em>depende</em>. Pero hay factores muy claros que inclinan la balanza.</p>
+        <h4>Brackets metálicos</h4>
+        <ul>
+          <li><strong>Ventajas:</strong> mayor precisión en casos complejos, menor costo, no requieren disciplina de uso.</li>
+          <li><strong>Desventajas:</strong> visibles, más difíciles de limpiar, pueden irritar las mejillas al inicio.</li>
+          <li><strong>Duración:</strong> 18 a 36 meses según la complejidad.</li>
+        </ul>
+        <h4>Alineadores transparentes</h4>
+        <ul>
+          <li><strong>Ventajas:</strong> prácticamente invisibles, removibles para comer y cepillar, más cómodos.</li>
+          <li><strong>Desventajas:</strong> requieren disciplina (usarlos 22 hrs/día), no aptos para todos los casos, mayor costo.</li>
+          <li><strong>Duración:</strong> 12 a 24 meses en casos moderados.</li>
+        </ul>
+        <h4>¿Cómo decidir?</h4>
+        <p>Para maloclusiones leves a moderadas, los alineadores son una excelente opción. Para casos con rotaciones severas, apiñamiento extremo o problemas de mordida complejos, los brackets siguen siendo la primera elección de los especialistas.</p>
+        <p>La única forma de saber cuál es la opción correcta para ti es con una evaluación ortodóncica. ¡Agenda con la Dra. Reyes!</p>
+      `
+    },
+    {
+      emoji: '🥗', bg: 'linear-gradient(135deg,#fce7f3,#fbcfe8)',
+      cat: 'Nutrición', catClass: 'cat-nutricion',
+      title: '10 alimentos que dañan tus dientes sin que lo sepas',
+      meta: '🕐 3 min lectura · 20 abril 2025 · Por Dr. Andrés Morales',
+      body: `
+        <p>No todo lo que parece saludable para tu cuerpo es amigable con tu boca. Estos son los 10 principales culpables del daño dental silencioso:</p>
+        <ul>
+          <li><strong>Jugo de naranja natural:</strong> altamente ácido, erosiona el esmalte. Mejor comerla entera.</li>
+          <li><strong>Frutas secas:</strong> se pegan entre los dientes y fermentan generando ácidos.</li>
+          <li><strong>Vinagre de manzana:</strong> muy ácido, corroe el esmalte con uso frecuente.</li>
+          <li><strong>Bebidas energéticas:</strong> doble problema: ácidas y azucaradas.</li>
+          <li><strong>Pan blanco:</strong> el almidón se convierte en azúcar y se pega en surcos.</li>
+          <li><strong>Chips de maíz:</strong> fragmentos pequeños quedan atrapados entre los dientes.</li>
+          <li><strong>Café y té negro:</strong> manchan el esmalte con el tiempo.</li>
+          <li><strong>Alcohol:</strong> reseca la boca, reduciendo la saliva protectora.</li>
+          <li><strong>Granola:</strong> puede contener tanto azúcar como un dulce.</li>
+          <li><strong>Hielo:</strong> morderlo fractura el esmalte y puede romper restauraciones.</li>
+        </ul>
+        <h4>¿Qué hacer?</h4>
+        <p>Enjuágate con agua después de consumir alimentos ácidos. Espera al menos 30 minutos antes de cepillarte para no erosionar el esmalte ablandado por el ácido.</p>
+      `
+    },
+    {
+      emoji: '🔩', bg: 'linear-gradient(135deg,#d1fae5,#a7f3d0)',
+      cat: 'Implantes', catClass: 'cat-implantes',
+      title: 'Todo lo que debes saber antes de ponerte un implante dental',
+      meta: '🕐 6 min lectura · 14 abril 2025 · Por Dr. Andrés Morales',
+      body: `
+        <p>Los implantes dentales son la solución más avanzada para reemplazar dientes perdidos. Pero es normal tener dudas antes de tomar la decisión. Aquí respondemos las 8 preguntas más frecuentes.</p>
+        <h4>1. ¿Duele el procedimiento?</h4>
+        <p>No durante la cirugía: se realiza con anestesia local. Después puede haber molestias leves 2-3 días que se controlan con antiinflamatorios comunes.</p>
+        <h4>2. ¿Cuánto tiempo dura el proceso completo?</h4>
+        <p>Entre 3 y 6 meses. El implante necesita osteointegración (fusionarse con el hueso) antes de colocar la corona definitiva.</p>
+        <h4>3. ¿Para quién es apropiado?</h4>
+        <p>Para adultos con hueso maxilar suficiente y buena salud general. Diabéticos, fumadores intensos y pacientes con osteoporosis requieren evaluación especial.</p>
+        <h4>4. ¿Cuánto duran?</h4>
+        <p>Con buena higiene, los implantes de titanio pueden durar <strong>toda la vida</strong>. La corona cerámica encima puede necesitar cambio a los 15-20 años.</p>
+        <h4>5. ¿Se nota diferencia con un diente natural?</h4>
+        <p>Prácticamente ninguna. La corona se fabrica a medida en color, forma y tamaño para integrarse perfectamente con tu sonrisa.</p>
+        <h4>6. ¿Hay riesgo de rechazo?</h4>
+        <p>El titanio es biocompatible: la tasa de éxito supera el 95%. El fracaso ocurre principalmente por falta de higiene o tabaquismo intenso.</p>
+        <h4>7. ¿Qué cuidados necesita?</h4>
+        <p>Los mismos que un diente natural: cepillado, hilo dental e irrigador. Más una revisión anual en clínica.</p>
+        <h4>8. ¿Cuánto cuesta?</h4>
+        <p>En Clínica Dental J desde $650.000. Ofrecemos financiamiento en cuotas sin interés. ¡Agenda una evaluación sin compromiso!</p>
+      `
+    },
+    {
+      emoji: '💧', bg: 'linear-gradient(135deg,#cffafe,#a5f3fc)',
+      cat: 'Higiene', catClass: 'cat-higiene',
+      title: '¿Hilo dental o irrigador? El debate que termina aquí',
+      meta: '🕐 4 min lectura · 7 abril 2025 · Por Dr. Sebastián Castro',
+      body: `
+        <p>La limpieza interdental —el espacio entre los dientes— es donde el cepillo no llega y donde se esconde el 40% de la placa bacteriana. Aquí comparamos las dos herramientas estrella.</p>
+        <h4>El hilo dental</h4>
+        <p>Sigue siendo el <strong>estándar de oro</strong> según la evidencia científica. Elimina la placa mecánicamente del contacto entre dientes y bajo la encía. Ideal para espacios estrechos.</p>
+        <ul>
+          <li>Úsalo una vez al día, preferentemente de noche.</li>
+          <li>Envuelve el hilo en C alrededor de cada diente, no lo deslices como sierra.</li>
+          <li>Alternativa cómoda: los palillos de hilo interdental (floss picks).</li>
+        </ul>
+        <h4>El irrigador oral</h4>
+        <p>Usa un chorro de agua a presión para limpiar entre los dientes y bajo la línea de encías. Es excelente para:</p>
+        <ul>
+          <li>Pacientes con brackets u ortodoncia fija.</li>
+          <li>Personas con implantes dentales.</li>
+          <li>Quienes tienen puentes o coronas.</li>
+          <li>Casos de gingivitis o enfermedad periodontal.</li>
+        </ul>
+        <h4>¿Cuál elegir?</h4>
+        <p>No son excluyentes: lo ideal es usar primero el irrigador y luego el hilo dental. Si solo puedes hacer uno, elige el hilo. Si tienes ortodoncia o implantes, el irrigador es casi imprescindible.</p>
+      `
+    }
+  ];
+
+  let visibleCount = 6;
+
+  function filterBlog(cat) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.blog-card').forEach(card => {
+      const match = cat === 'all' || card.dataset.cat === cat;
+      card.classList.toggle('hidden', !match);
+    });
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const cat = this.dataset.filter || 'all';
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelectorAll('.blog-card').forEach(card => {
+        const match = cat === 'all' || card.dataset.cat === cat;
+        card.classList.toggle('hidden', !match);
+      });
+    });
+  });
+
+  function openPost(idx) {
+    const p = posts[idx];
+    document.getElementById('modalThumb').style.background = p.bg;
+    document.getElementById('modalThumb').textContent = p.emoji;
+    document.getElementById('modalCat').innerHTML = `<span class="blog-cat ${p.catClass}" style="position:static;">${p.cat}</span>`;
+    document.getElementById('modalTitle').textContent = p.title;
+    document.getElementById('modalMeta').textContent = p.meta;
+    document.getElementById('modalBody').innerHTML = p.body;
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePost() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closePostIfOutside(e) {
+    if (e.target === document.getElementById('modalOverlay')) closePost();
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePost(); });
+
+  function showMorePosts() {
+    document.getElementById('btnShowMore').style.display = 'none';
+  }
+</script>
+</body>
+</html>
